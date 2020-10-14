@@ -50,7 +50,7 @@ public class FenomenosDAO implements IFenomenoDAO {
     	
     	Fenomeno fenomeno = em.find(Fenomeno.class, id);
 		if (fenomeno == null) {
-			throw new ServiciosException("No existe el fenomeno a borrar. Id=" + fenomeno.getId_Fenomeno());
+			throw new ServiciosException("No existe el fenomeno a borrar.");
 		}
     	try {
 			
@@ -73,7 +73,7 @@ public class FenomenosDAO implements IFenomenoDAO {
 		}
     	;
     	if (query.getResultList().isEmpty()) {
-			System.out.println("lista de fenomenos está vacía");
+			System.out.println("lista de fenomenos estï¿½ vacï¿½a");
 			return null;
 		}
 		return query.getResultList();
