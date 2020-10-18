@@ -9,8 +9,8 @@ import com.exception.ServiciosException;
 @Remote
 public interface IUsuarioDAO {
 
-	void create(Usuario usuario) throws ServiciosException;
-	void update(Usuario usuario) throws ServiciosException;
+	Usuario create(Usuario usuario) throws ServiciosException;
+	Usuario update(Usuario usuario) throws ServiciosException;
 	void delete(int id) throws ServiciosException;
 	List <Usuario> obtenerTodos() throws ServiciosException;
 	List <Usuario> obtenerTodos(String filtro) throws ServiciosException;

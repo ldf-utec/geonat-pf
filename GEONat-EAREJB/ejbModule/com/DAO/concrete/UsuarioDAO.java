@@ -26,12 +26,12 @@ public class UsuarioDAO implements IUsuarioDAO {
     }
 
 	@Override
-	public void create(Usuario usuario) throws ServiciosException {
+	public Usuario create(Usuario usuario) throws ServiciosException {
 		try {
 			
-			em.persist(usuario);
+			Usuario u = em.merge(usuario);
 			em.flush();
-			
+			return u;
 		} catch (PersistenceException e) {
 			
 			throw new ServiciosException("Error al crear" );
@@ -41,11 +41,12 @@ public class UsuarioDAO implements IUsuarioDAO {
 	}
 
 	@Override
-	public void update(Usuario usuario) throws ServiciosException {
+	public Usuario update(Usuario usuario) throws ServiciosException {
 		try {
 			
-			em.merge(usuario);
+			Usuario u = em.merge(usuario);
 			em.flush();
+			return u;
 			
 		} catch (PersistenceException e) {
 			throw new ServiciosException("Error al actualizar");
