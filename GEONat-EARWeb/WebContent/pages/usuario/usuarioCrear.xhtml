@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<h:body> 
+	<p:breadCrumb>
+		<p:menuitem value="Index" url="http://localhost:8082/GEONat-EARWeb/faces/index.xhtml" />
+		<p:menuitem value="Usuarios" url="http://localhost:8082/GEONat-EARWeb/faces/pages/usuario/usuarios.xhtml" />
+	</p:breadCrumb>
+
+	<f:metadata>
+		    <f:event type="preRenderView" listener="#{usuarioCrear.preRenderViewListener}"/>
+	</f:metadata>
+	
+	<h:form>
+		Nombre de usuario: <h:inputText value="#{usuarioCrear.usuario.nombreUsuario}" />
+		<br/><br/>
+		Nombre: <h:inputText value="#{usuarioCrear.usuario.nombre}" />
+		<br/><br/>
+		Apellido: <h:inputText value="#{usuarioCrear.usuario.apellido}" />
+		<br/><br/>
+		Tipo de documento: <h:inputText value="#{usuarioCrear.usuario.tipoDocumento}" />
+		<br/><br/>
+		Documento: <h:inputText value="#{usuarioCrear.usuario.nroDocumento}" />
+		<br/><br/>
+		E-mail: <h:inputText value="#{usuarioCrear.usuario.email}" />
+		<br/><br/>
+		Dirección: <h:inputText value="#{usuarioCrear.usuario.direccion}" />
+		<br/><br/>
+		Estado activado: <h:inputText value="#{usuarioCrear.usuario.estadoActivo}" />
+		<br/><br/>
+		Tipo de usuario: <h:inputText value="#{usuarioCrear.usuario.tipoUsuario}" />
+
+		
+		<h:commandButton value="Guardar" update=":form" action="#{usuarioCrear.salvarCambios}">
+
+		</h:commandButton>
+	</h:form>
+	
+
+</h:body> 
+</html>

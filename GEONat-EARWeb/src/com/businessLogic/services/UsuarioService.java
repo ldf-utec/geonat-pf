@@ -52,7 +52,6 @@ public class UsuarioService implements Serializable {
 		usuario.setEmail(u.getEmail());
 		usuario.setDireccion(u.getDireccion());
 		usuario.setEstadoActivo(u.getEstadoActivo());
-		usuario.setEstadoActivo(u.getEstadoActivo());
 		return usuario;
 	}
 	
