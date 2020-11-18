@@ -36,7 +36,8 @@ public class UsuarioService implements Serializable {
 		usuarioDTO.setEmail(u.getEmail());
 		usuarioDTO.setDireccion(u.getDireccion());
 		usuarioDTO.setEstadoActivo(u.getEstadoActivo());
-		usuarioDTO.setEstadoActivo(u.getEstadoActivo());
+		usuarioDTO.setTipoUsuario(u.getTipoUsuario());;
+		usuarioDTO.setPassword(u.getPassword());
 		return usuarioDTO;
 	}
 	
@@ -52,6 +53,8 @@ public class UsuarioService implements Serializable {
 		usuario.setEmail(u.getEmail());
 		usuario.setDireccion(u.getDireccion());
 		usuario.setEstadoActivo(u.getEstadoActivo());
+		usuario.setTipoUsuario(u.getTipoUsuario());
+		usuario.setPassword(u.getPassword());
 		return usuario;
 	}
 	

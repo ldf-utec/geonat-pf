@@ -25,11 +25,13 @@ public class UsuarioDTO {
 	private Boolean estadoActivo;
 
 	private TipoUsuario tipoUsuario;
+	
+	private String password;
 
 	
 	// Constructores
 	public UsuarioDTO(Integer id, String nombreUsuario, String nombre, String apellido,
-			TipoDocumento tipoDocumento, String nroDocumento, String email, String direccion, TipoUsuario tipoUsuario) {
+			TipoDocumento tipoDocumento, String nroDocumento, String email, String direccion, TipoUsuario tipoUsuario, String password) {
 		super();
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
@@ -40,6 +42,7 @@ public class UsuarioDTO {
 		this.email = email;
 		this.direccion = direccion;
 		this.tipoUsuario = tipoUsuario;
+		this.password = password;
 	}
 
 	
@@ -146,6 +149,16 @@ public class UsuarioDTO {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	
