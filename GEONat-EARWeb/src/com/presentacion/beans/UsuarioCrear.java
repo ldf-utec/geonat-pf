@@ -37,9 +37,9 @@ public class UsuarioCrear implements Serializable {
 	public String salvarCambios() throws ServiciosException{
 				
 		usuario.setId(0);
-		usuario.setTipoDocumento(TipoDocumento.CI);
-		usuario.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
-		usuario.setEstadoActivo(true);
+		//usuario.setTipoDocumento(TipoDocumento.CI);
+		//usuario.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
+		//usuario.setEstadoActivo(true);
 			
 		UsuarioDTO u = (UsuarioDTO) usuarioService.agregarUsuario(usuario);
 		
@@ -51,6 +51,14 @@ public class UsuarioCrear implements Serializable {
 	}
 
 
+	public TipoDocumento[] getTiposDocumentos() {
+        return TipoDocumento.values();
+    }
+	
+	
+	public TipoUsuario[] getTiposUsuarios() {
+        return TipoUsuario.values();
+    }
 	
 	
 	public UsuarioDTO getUsuario() {

@@ -19,12 +19,28 @@
 	
 	<h:form>
 		Nombre de usuario: <h:inputText value="#{usuarioCrear.usuario.nombreUsuario}" />
+		
+		<br/><br/>
+		
+		<p:outputLabel value="Tipo de usuario: " style="font-weight:bold;"/>
+		<p:selectOneMenu style="width:50%" value="#{usuarioCrear.usuario.tipoUsuario}">
+			<f:selectItem itemLabel="Seleccionar" itemValue="null"/>
+			<f:selectItems value="#{usuarioCrear.tiposUsuarios}"/>
+		</p:selectOneMenu>
+		
 		<br/><br/>
 		Nombre: <h:inputText value="#{usuarioCrear.usuario.nombre}" />
 		<br/><br/>
 		Apellido: <h:inputText value="#{usuarioCrear.usuario.apellido}" />
 		<br/><br/>
-		Tipo de documento: <h:inputText value="#{usuarioCrear.usuario.tipoDocumento}" />
+		
+		<p:outputLabel value="Tipo de documento " style="font-weight:bold;"/>
+		<p:selectOneMenu style="width:50%" value="#{usuarioCrear.usuario.tipoDocumento}">
+			<f:selectItem itemLabel="Seleccionar" itemValue="null"/>
+			<f:selectItems value="#{usuarioCrear.tiposDocumentos}"/>
+		</p:selectOneMenu>
+		
+
 		<br/><br/>
 		Documento: <h:inputText value="#{usuarioCrear.usuario.nroDocumento}" />
 		<br/><br/>
@@ -32,10 +48,17 @@
 		<br/><br/>
 		Dirección: <h:inputText value="#{usuarioCrear.usuario.direccion}" />
 		<br/><br/>
-		Estado activado: <h:inputText value="#{usuarioCrear.usuario.estadoActivo}" />
+		
+		<p:outputLabel value="Estado activado: " style="font-weight:bold;"/>
+		<p:selectOneRadio value="#{usuarioCrear.usuario.estadoActivo}">
+		    <f:selectItem itemLabel="Si" itemValue="#{true}" />
+		    <f:selectItem itemLabel="No" itemValue="#{false}" />
+		</p:selectOneRadio>
+		
+		
 		<br/><br/>
-		Tipo de usuario: <h:inputText value="#{usuarioCrear.usuario.tipoUsuario}" />
-
+		Contraseña: <h:inputText value="#{usuarioCrear.usuario.password}" />
+		<br/><br/>
 		
 		<h:commandButton value="Guardar" update=":form" action="#{usuarioCrear.salvarCambios}">
 
