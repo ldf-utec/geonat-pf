@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/layout/layout.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">
+		<c:set var="title" value="Modificar Usuario" scope="request" />
+	</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event listener="#{gestionLogin.verificarSesion}"
+				type="preRenderView" />
+		</f:metadata>
+		<center>
+			<h:form id="idDatosUsuario">
+
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+
+				<p:panelGrid id="grid" columns="3">
+
+					
+					<p:outputLabel for="id" value="Id" />
+					<p:inputText id="id" disabled="true" size="35"
+						value="#{gestionUsuario.usuarioSeleccionado.id}" />
+					<p:message for="id" style="color:red" />
+
+					<p:outputLabel for="nombre" value="*Nombre:" />
+					<p:inputText id="nombre" maxlength="40" size="35" required="true"
+						validatorMessage="Nombre inválido, verifíquelo."
+						value="#{gestionUsuario.usuarioSeleccionado.nombre}">
+						<f:validateRegex pattern="^[a-zA-Z ]*$" />
+					</p:inputText>
+					<p:message for="nombre" style="color:red" />
+
+					<p:outputLabel for="apellido" value="*Apellido:" />
+					<p:inputText id="apellido" maxlength="40" size="35" required="true" validatorMessage="Apellido inválido, verifíquelo."
+						value="#{gestionUsuario.usuarioSeleccionado.apellido}">
+						<f:validateRegex pattern="^[a-zA-Z ]*$" />
+					</p:inputText>
+					<p:message for="apellido" style="color:red" />
+
+					<p:outputLabel for="tipoDoc" value="*Tipo de Documento:" />
+					<p:selectOneMenu id="tipoDoc"
+						value="#{gestionUsuario.usuarioSeleccionado.tipoDoc}">
+						<f:selectItem itemValue="CI" itemLabel="Cédula de identidad" />
+						<f:selectItem itemValue="Pasaporte" itemLabel="Pasaporte" />
+						<f:selectItem itemValue="Carta de ciudadania"
+							itemLabel="Carta de ciudadanía" />
+						<f:selectItem itemValue="Otros" itemLabel="Otros" />
+					</p:selectOneMenu>
+					<p:message for="tipoDoc" style="color:red" />
+
+					<p:outputLabel for="numDoc" value="*Número de Documento:" />
+					<p:inputText id="numDoc" maxlength="30" size="35" required="true"
+						value="#{gestionUsuario.usuarioSeleccionado.numDoc}" />
+					<p:message for="numDoc" style="color:red" />
+
+					<p:outputLabel for="direccion" value="*Dirección:" />
+					<p:inputText id="direccion" maxlength="40" size="35"
+						required="true"
+						value="#{gestionUsuario.usuarioSeleccionado.direccion}" />
+					<p:message for="direccion" style="color:red" />
+
+					<p:outputLabel for="nombreUsuario" value="*Nombre de Usuario:" />
+					<p:inputText id="nombreUsuario" maxlength="30" size="35"
+						required="true"
+						validatorMessage="Nombre de usuario inválido."
+						value="#{gestionUsuario.usuarioSeleccionado.nombreUsuario}">
+						<f:validateRegex pattern="^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$" />
+					</p:inputText>
+					<p:message for="nombreUsuario" style="color:red" />
+
+					<p:outputLabel for="administrador" value="Administrador" />
+					<p:selectBooleanCheckbox id="administrador"
+						value="#{gestionUsuario.usuarioSeleccionado.administrador}" />
+					<p:message for="administrador" style="color:red" />
+
+					<p:outputLabel for="experto" value="Experto" />
+					<p:selectBooleanCheckbox id="experto"
+						value="#{gestionUsuario.usuarioSeleccionado.experto}" />
+					<p:message for="experto" style="color:red" />
+
+					<p:outputLabel for="voluntario" value="Voluntario" />
+					<p:selectBooleanCheckbox id="voluntario"
+						value="#{gestionUsuario.usuarioSeleccionado.voluntario}" />
+					<p:message for="voluntario" style="color:red" />
+
+					<p:outputLabel value="*Correo:" for="correo" />
+					<p:inputText id="correo" maxlength="60" size="35"
+						validatorMessage="El correo ingresado no es válido, verifíquelo."
+						required="true"
+						value="#{gestionUsuario.usuarioSeleccionado.correo}">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</p:inputText>
+					<p:message for="correo" style="color:red" />
+
+					<p:outputLabel for="isActivo" value="Activo" />
+					<p:selectOneMenu id="isActivo"
+						value="#{gestionUsuario.usuarioSeleccionado.estado}">
+						<f:selectItem itemValue="true" itemLabel="Si" />
+						<f:selectItem itemValue="false" itemLabel="No" />
+					</p:selectOneMenu>
+					<p:message for="isActivo" style="color:red" />
+
+
+						<p:outputLabel for="pass" value="*Contraseña:" />
+					<p:password id="pass" feedback="true" redisplay="true" maxlength="30" match="pass2"
+						required="true" size="35" validatorMessage="Re-Contraseña debe coincidir con Contraseña, inténtelo nuevamente."
+						value="#{gestionUsuario.usuarioSeleccionado.pass}" />
+					<p:message for="pass" style="color:red" />
+
+					<p:outputLabel for="pass2" value="*Re-Contraseña:" />
+					<p:password id="pass2" redisplay="true" maxlength="30" size="35" required="true"
+						value="#{gestionUsuario.usuarioSeleccionado.pass}" />
+					<p:message for="pass2" style="color:red" />
+				
+				</p:panelGrid>
+
+				<!-- botones -->
+				<p:commandButton value="Salvar cambios"
+					action="#{gestionUsuario.modificar}" update="grid">
+					<f:param name="modalidad" value="modificar" />
+					<p:confirm header="Confirmación"
+						message="¿Seguro que desea salvar los cambios?"
+						icon="pi pi-exclamation-triangle" />
+				</p:commandButton>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="No"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
+
+				<p:commandButton id="idCancelar" immediate="true" value="Cancelar"
+					action="#{gestionUsuario.menuItem}"
+					style="margin-left:10px; margin-top:10px; margin-bottom:10px">
+					<f:param name="modalidad" value="#{param['modalidad']}" />
+				</p:commandButton>
+
+			</h:form>
+		</center>
+	</ui:define>
+</ui:composition>
+

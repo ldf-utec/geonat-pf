@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/layout/layout.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">
+
+		<c:set var="title" value="Revisión de Observación" scope="request" />
+
+	</ui:define>
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event listener="#{gestionLogin.verificarSesion}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form>
+
+			<h3>
+				<h:outputLabel value="Busca la Observación a Revisar" />
+			</h3>
+
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:panelGrid columns="2">
+
+				<p:outputLabel value="Id de la Observación:" />
+				<p:inputText id="idObservacion"
+					value="#{gestionObservacion.idObservacion}" style="margin-top:10px" />
+
+			</p:panelGrid>
+
+			<p:commandButton value="Buscar Observación" update="tablaBusqueda"
+				style="margin-top:10px; margin-bottom:10px"
+				actionListener="#{gestionObservacion.buscarObservacion}">
+			</p:commandButton>
+		</h:form>
+
+
+		<p:dataTable id="tablaBusqueda"
+			value="#{gestionObservacion.observaciones}" var="o">
+
+			<p:column headerText="Id">
+				<p:outputLabel value="#{o.id}" />
+			</p:column>
+
+			<p:column headerText="Fenómeno">
+				<p:outputLabel value="#{o.fenomeno.nombre}" />
+			</p:column>
+
+			<p:column headerText="Criticidad">
+				<p:outputLabel value="#{o.criticidad}" />
+			</p:column>
+
+			<p:column headerText="Descripción">
+				<p:outputLabel value="#{o.descripcion}" />
+			</p:column>
+
+			<p:column headerText="Comentarios">
+				<p:outputLabel value="#{o.comentariosAdicionales}" />
+			</p:column>
+
+			<p:column headerText="Fecha de Registro">
+				<p:outputLabel value="#{o.fechaHoraRegistro}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Argentina/Buenos_Aires"/>
+				</p:outputLabel>
+			</p:column>
+			
+			<p:column headerText="Fecha de Revisión">
+				<p:outputLabel value="#{o.fechaHoraRev}">
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="America/Argentina/Buenos_Aires"/>
+				</p:outputLabel>
+			</p:column>
+
+			<p:column headerText="Usuario">
+				<p:outputLabel value="#{o.volunatio.nombreUsuario}" />
+			</p:column>
+
+
+			<p:column headerText="Localidad">
+				<p:outputLabel value="#{o.localidad.nombre}" />
+			</p:column>
+
+			<p:column headerText="Departamento">
+				<p:outputLabel value="#{o.localidad.departamento.nombre}" />
+			</p:column>
+
+			<p:column headerText="Zona">
+				<p:outputLabel value="#{o.localidad.departamento.zona.nombre}" />
+			</p:column>
+
+			<p:column headerText="Más Acciones">
+				<h:form>
+					<h:commandButton value="Revisar"
+						action="#{gestionObservacion.revisar(o)}">
+					</h:commandButton>
+				</h:form>
+			</p:column>
+		</p:dataTable>
+		<h:form>
+			<p:commandButton value="Listar todas las Observaciones"
+				style="margin-top:10px; margin-bottom:10px"
+				update="tablaBusqueda"
+				actionListener="#{gestionObservacion.obtenerTodas}">
+			</p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

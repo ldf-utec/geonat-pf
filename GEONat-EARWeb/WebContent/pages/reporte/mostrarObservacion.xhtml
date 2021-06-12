@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/layout/layout.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">
+		<c:set var="title" value="Revisión de Observación" scope="request" />
+	</ui:define>
+
+	<ui:define name="content">
+		<f:metadata>
+			<f:event listener="#{gestionLogin.verificarSesion}"
+				type="preRenderView" />
+			<f:event listener="#{gestionReporte.obtenerDetallesPorObservacion}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<center>
+			<h:form id="idForm">
+
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+
+				<p:panelGrid columns="3">
+
+					<p:outputLabel value="Id" />
+					<p:inputText id="id" disabled="true"
+						value="#{gestionReporte.observacion.id}" />
+					<p:outputLabel></p:outputLabel>
+
+					<p:outputLabel value="Fenómeno" />
+					<p:inputText id="fenomeno" disabled="true"
+						value="#{gestionReporte.observacion.fenomeno.nombre}" />
+					<p:outputLabel></p:outputLabel>
+
+					
+
+					<p:outputLabel value="Localidad" />
+					<p:inputText id="localidad" disabled="true"
+						value="#{gestionReporte.observacion.localidad.nombre}" />
+					<p:outputLabel></p:outputLabel>
+
+					<p:outputLabel value="Departamento" />
+					<p:inputText id="departamento" disabled="true"
+						value="#{gestionReporte.observacion.localidad.departamento.nombre}" />
+					<p:outputLabel></p:outputLabel>
+
+					<p:outputLabel value="Zona" />
+					<p:inputText id="zona" disabled="true"
+						value="#{gestionReporte.observacion.localidad.departamento.zona.nombre}" />
+					<p:outputLabel></p:outputLabel>
+
+					<p:outputLabel value="Latitud" />
+					<p:inputNumber id="latitud" decimalPlaces="4" disabled="true"
+						value="#{gestionReporte.observacion.latitud}" />
+					<p:outputLabel></p:outputLabel>
+
+					<p:outputLabel value="Longitud" />
+					<p:inputNumber id="longitud" decimalPlaces="4" disabled="true"
+						value="#{gestionReporte.observacion.longitud}" />
+					<p:outputLabel></p:outputLabel>
+
+					<p:outputLabel value="Altitud" />
+					<p:inputNumber id="altitud" decimalPlaces="4" disabled="true"
+						value="#{gestionReporte.observacion.altitud}" />
+					<p:outputLabel></p:outputLabel>
+					
+					<p:outputLabel value="Fecha y Hora de Registro" />
+					<p:inputText id="fechaHoraRegistro" disabled="true"
+						value="#{gestionReporte.observacion.fechaHoraRegistro}" >
+						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" timeZone="America/Argentina/Buenos_Aires"/>
+					</p:inputText>
+					<p:outputLabel></p:outputLabel>
+					
+					<p:outputLabel value="Fecha y Hora de Revisión" />
+					<p:inputText id="fechaHoraRev" disabled="true"
+						value="#{gestionReporte.observacion.fechaHoraRev}" >
+						<f:convertDateTime pattern="dd/MM/yyyy - HH:mm" timeZone="America/Argentina/Buenos_Aires"/>
+					</p:inputText>
+					<p:outputLabel></p:outputLabel>
+
+
+					<p:outputLabel value="Comentarios del usuario" />
+					<p:inputTextarea id="comentarios" rows="5" cols="30"
+						disabled="true"
+						value="#{gestionReporte.observacion.comentariosAdicionales}"
+						autoResize="false" />
+					<br />
+					<h:outputText value="" />
+					<h:outputText id="displayCom" />
+					<p:outputLabel></p:outputLabel>
+
+					<p:outputLabel value="Criticidad" />
+					<p:selectOneButton id="criticidad" disabled="true"
+						value="#{gestionReporte.observacion.criticidad}">
+						<f:selectItem itemLabel="Alta" itemValue="Alta" />
+						<f:selectItem itemLabel="Media" itemValue="Media" />
+						<f:selectItem itemLabel="Baja" itemValue="Baja" />
+					</p:selectOneButton>
+					<p:message for="criticidad" style="color:red" />
+
+					<p:outputLabel value="Fiabilidad" />
+					<p:selectOneButton id="fiabilidad" disabled="true"
+						value="#{gestionReporte.observacion.fiabilidadRev}">
+						<f:selectItem itemLabel="Muy Alta" itemValue="Muy Alta" />
+						<f:selectItem itemLabel="Alta" itemValue="Alta" />
+						<f:selectItem itemLabel="Moderada" itemValue="Moderada" />
+						<f:selectItem itemLabel="Baja" itemValue="Baja" />
+						<f:selectItem itemLabel="Muy Baja" itemValue="Muy Baja" />
+					</p:selectOneButton>
+					<p:message for="criticidad" style="color:red" />
+
+					<p:outputLabel value="Comentarios de la Revisión" />
+					<p:inputTextarea id="comentarios_rev" rows="5" cols="30"
+						disabled="true"
+						value="#{gestionReporte.observacion.comentariosRev}"
+						autoResize="false" />
+					<br />
+					<h:outputText value="" />
+					<h:outputText id="displayComRev" />
+					<p:message for="comentarios_rev" style="color:red" />
+
+					<p:outputLabel value="Activo" />
+					<p:selectOneMenu value="#{gestionReporte.observacion.estado}"
+						disabled="true">
+						<f:selectItem itemValue="true" itemLabel="Si" />
+						<f:selectItem itemValue="false" itemLabel="No" />
+					</p:selectOneMenu>
+					<p:outputLabel></p:outputLabel>
+					
+					<c:forEach items="#{gestionReporte.detalles}" var="detalle">
+						<c:set var="tipoDato" value="#{detalle.caracteristica.tipo_dato}" />
+						<p:outputLabel
+							value="#{detalle.caracteristica.etiqueta_presentacion}" />
+						
+						<c:if test="#{tipoDato == 'texto'}">
+							<p:inputText id="detalleTxt" disabled="true"
+								value="#{detalle.valor_texto}" />
+						</c:if>
+						
+						<c:if test="#{tipoDato == 'numero'}">
+							<p:inputNumber id="detalleNum" disabled="true"
+								value="#{detalle.valor_numerico}" />
+						</c:if>
+						<p:outputLabel></p:outputLabel>
+					</c:forEach>
+					
+				</p:panelGrid>
+
+				<!-- botones -->
+				<p:commandButton id="idVolver" immediate="true" value="Volver"
+					action="#{gestionReporte.menuItem1}"
+					style="margin-left:10px; margin-top:10px; margin-bottom:10px">
+				</p:commandButton>
+			</h:form>
+		</center>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p= "http://primefaces.org/ui">
+
+	<h:form>
+		<p:growl id="messages" />
+		
+		<p:menubar>
+			<p:submenu label="Gestión de Usuarios" icon="pi pi-users" rendered="#{sessionScope['usuario'].administrador=='true'}">
+				<p:menuitem value="Alta de Usuarios" ajax="false" icon="pi pi-plus"
+					url="/ProyectoFinal/pages/usuario/altaUsuario.xhtml">
+					<f:param name="modalidad" value="insertar" />
+				</p:menuitem>
+				<p:menuitem value="Modificar Usuario" ajax="false" icon="pi pi-pencil"
+					action="#{gestionUsuario.menuItem}">
+					<f:param name="modalidad" value="modificar" />
+				</p:menuitem>
+				<p:menuitem value="Baja Usuario" ajax="false" icon="pi pi-minus"
+					action="#{gestionUsuario.menuItem}">
+					<f:param name="modalidad" value="baja" />
+				</p:menuitem>
+			</p:submenu>
+			
+			<p:submenu label="Gestión de Observaciones" icon="pi pi-eye" rendered="#{sessionScope['usuario'].experto=='true'}">
+				<p:menuitem value="Revisión" ajax="false" icon="pi pi-check" action="#{gestionObservacion.menuItem}">
+				</p:menuitem>
+			</p:submenu>
+
+			<p:submenu label="Gestión de Reportes" icon="pi pi-bars" rendered="#{sessionScope['usuario'].experto=='true'}">
+				<p:menuitem value="Reportes por fecha y Zona" ajax="false" icon="pi pi-calendar" action="#{gestionReporte.menuItem1}">
+				</p:menuitem>
+				<p:menuitem value="Reportes por fecha y Criticidad" ajax="false" icon="pi pi-calendar" action="#{gestionReporte.menuItem2}">
+				</p:menuitem>
+			</p:submenu>
+			
+			<f:facet name="options">
+				<p:outputLabel style="margin-right:8px" rendered="#{sessionScope['usuario'] != null}" 
+					value="#{sessionScope['usuario'].nombre} #{sessionScope['usuario'].apellido} (#{sessionScope['usuario'].nombreUsuario})" />
+				<p:commandButton value="Cerrar Sesión" rendered="#{sessionScope['usuario'] != null}" actionListener="#{gestionLogin.logout}" icon="pi pi-sign-out"/>
+			</f:facet>
+		</p:menubar>
+
+
+	</h:form>
+</ui:composition>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ui:composition template="/layout/layout.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">
+		<c:if test="#{param['modalidad'] == 'modificar'}">
+			<c:set var="title" value="Modificar Usuario" scope="request" />
+		</c:if>
+		<c:if test="#{param['modalidad'] == 'baja'}">
+			<c:set var="title" value="Baja Usuario" scope="request" />
+		</c:if>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<f:metadata>
+			<f:event listener="#{gestionLogin.verificarSesion}"
+				type="preRenderView" />
+		</f:metadata>
+
+		<h:form>
+			<c:if test="#{param['modalidad'] == 'modificar'}">
+				<h3>
+					<h:outputLabel value="Busca el Usuario a Modificar" />
+				</h3>
+
+			</c:if>
+			<c:if test="#{param['modalidad'] == 'baja'}">
+				<h3>
+					<h:outputLabel value="Busca el Usuario a dar de Baja" />
+				</h3>
+			</c:if>
+
+
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:panelGrid columns="2">
+
+				<p:outputLabel value="Nombre de Usuario" />
+				<p:inputText id="nombre"
+					value="#{gestionUsuario.criterioNombreUsuario}"
+					style="margin-top:10px" />
+
+				<p:outputLabel value="Numero de Documento" />
+				<p:inputText id="numDoc" value="#{gestionUsuario.criterioNumDoc}" />
+
+			</p:panelGrid>
+			<p:commandButton value="Buscar Usuario" update="tablaBusqueda"
+				actionListener="#{gestionUsuario.buscarUsuario}">
+				<f:param name="modalidad" value="#{param['modalidad']}" />
+			</p:commandButton>
+		</h:form>
+
+		<h3>
+			<h:outputLabel value="Usuario seleccionado" />
+		</h3>
+
+		<p:dataTable id="tablaBusqueda"
+			value="#{gestionUsuario.usuariosSeleccionados}" var="usuario"
+			styleClass="employeeTable" headerClass="employeeTableHeader">
+
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Tipo Doc</f:facet>    				
+      		#{usuario.tipoDoc}
+   			</p:column>
+
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Número de doc</f:facet>    				
+      		#{usuario.numDoc}
+   			</p:column>
+
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Nombre</f:facet>    				
+      		#{usuario.nombre}
+   			</p:column>
+
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Apellido</f:facet>    				
+      		#{usuario.apellido}
+   			</p:column>
+
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Dirección</f:facet>    				
+      		#{usuario.direccion}
+   			</p:column>
+
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Nombre Usuario</f:facet>    				
+      		#{usuario.nombreUsuario}
+   			</p:column>
+			<!--  
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Email</f:facet>    				
+      		#{usuario.email}
+   			</p:column>
+-->
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Activo</f:facet>    				
+      		#{usuario.estado}
+   			</p:column>
+
+			<p:column sortBy="#{usuario.numDoc}">
+				<f:facet name="header">Más Acciones</f:facet>
+				<c:if test="#{param['modalidad'] == 'modificar'}">
+					<h:link value="Modificar" outcome="modificarUsuario.xhtml"
+						style="color:blue">
+						<f:param name="modalidad" value="modificar" />
+					</h:link>
+				</c:if>
+				<c:if test="#{param['modalidad'] == 'baja'}">
+					<h:form>
+						<p:commandButton value="Dar de Baja" update="tablaBusqueda"
+							actionListener="#{gestionUsuario.bajaUsuario}">
+							<f:param name="modalidad" value="baja" />
+							<p:confirm header="Confirmación"
+								message="¿Seguro que desea dar de baja el usuario?"
+								icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Si" type="No"
+								styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+					</h:form>
+				</c:if>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+
